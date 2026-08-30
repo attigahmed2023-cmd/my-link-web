@@ -5,7 +5,10 @@ export default async function handler(req, res) {
 
   const { name, phone, city, address, shipperProductId, quantity, totalPrice } = req.body;
 
+  console.log("Requête reçue:", { name, phone, city, shipperProductId, quantity, totalPrice });
+
   if (!name || !phone || !city || !shipperProductId) {
+    console.error("Champs manquants:", { name, phone, city, shipperProductId });
     return res.status(400).json({ error: "Champs manquants" });
   }
 
@@ -36,6 +39,7 @@ export default async function handler(req, res) {
     });
 
     const data = await shipperRes.json();
+    console.log("Réponse Shipper:", shipperRes.status, JSON.stringify(data));
 
     if (!shipperRes.ok) {
       return res.status(shipperRes.status).json({ error: data });
@@ -43,6 +47,7 @@ export default async function handler(req, res) {
 
     return res.status(201).json({ success: true, order_id: data.id });
   } catch (err) {
+    console.error("Erreur attrapée:", err.message);
     return res.status(500).json({ error: "Erreur serveur", details: err.message });
   }
 }

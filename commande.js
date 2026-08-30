@@ -83,6 +83,26 @@ function buildWhatsAppLink(data) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
+function sendToShipper(data) {
+  if (!CURRENT_PRODUCT.shipperId) {
+    console.warn("Pas de shipperId pour ce produit, commande non envoyée à Shipper.");
+    return;
+  }
+  fetch("/api/create-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: data.name,
+      phone: data.phone,
+      city: data.city,
+      address: data.address,
+      shipperProductId: CURRENT_PRODUCT.shipperId,
+      quantity: qty,
+      totalPrice: CURRENT_PRODUCT.price * qty
+    })
+  }).catch(err => console.error("Erreur Shipper:", err));
+}
+
 function initForm() {
   document.getElementById("qtyMinus").addEventListener("click", () => updateQty(-1));
   document.getElementById("qtyPlus").addEventListener("click", () => updateQty(1));
@@ -106,13 +126,16 @@ function initForm() {
       return;
     }
 
-    const link = buildWhatsAppLink({
+    const data = {
       name: name.value.trim(),
       phone: phone.value.trim(),
       city: city.value.trim(),
       address: address.value.trim()
-    });
+    };
 
+    sendToShipper(data);
+
+    const link = buildWhatsAppLink(data);
     window.location.href = link;
   });
 }

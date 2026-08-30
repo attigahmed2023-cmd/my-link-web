@@ -99,7 +99,8 @@ function sendToShipper(data) {
       shipperProductId: CURRENT_PRODUCT.shipperId,
       quantity: qty,
       totalPrice: CURRENT_PRODUCT.price * qty
-    })
+    }),
+    keepalive: true
   }).catch(err => console.error("Erreur Shipper:", err));
 }
 

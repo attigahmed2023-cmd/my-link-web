@@ -24,8 +24,7 @@ export default async function handler(req, res) {
         address: {
           name: name,
           phone1: phone,
-          address1: address || city,
-          division_1: city,
+          address1: address ? `${address}, ${city}` : city,
           country: "TN"
         },
         items: [

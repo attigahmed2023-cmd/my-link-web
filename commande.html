@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmer ma commande — TN Gadgets</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="commande.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo">TN<span class="logo-dot">·</span>GADGETS</a>
+    <span class="order-steps mono">Commande sécurisée</span>
+  </div>
+</header>
+
+<main class="wrap order-wrap">
+
+  <div id="loadingState" class="order-loading">Chargement du produit…</div>
+
+  <div id="orderContent" class="order-grid hidden">
+
+    <!-- Résumé produit -->
+    <section class="order-summary">
+      <div class="order-img-wrap">
+        <img id="pImage" class="order-img" src="" alt="">
+        <span id="pBadge" class="card-badge hidden"></span>
+      </div>
+      <span id="pCategory" class="card-eyebrow"></span>
+      <h1 id="pTitle" class="order-title"></h1>
+      <p id="pDesc" class="order-desc"></p>
+      <div class="order-price-row">
+        <span class="mono order-price-label">Total à payer</span>
+        <span id="pPrice" class="order-price"></span>
+      </div>
+      <ul class="order-guarantees">
+        <li>💵 Paiement à la livraison — aucune carte demandée</li>
+        <li>🚚 Livraison 24–72h partout en Tunisie</li>
+        <li>🔒 Tes infos servent uniquement à te livrer</li>
+      </ul>
+    </section>
+
+    <!-- Formulaire -->
+    <section class="order-form-card">
+      <span class="section-tag">Étape finale</span>
+      <h2>Vos informations de livraison</h2>
+      <p class="order-form-sub">Remplis le formulaire, on te contacte pour confirmer avant l'expédition.</p>
+
+      <form id="orderForm" novalidate>
+        <label class="field">
+          <span>Nom complet</span>
+          <input type="text" id="fName" name="name" placeholder="Ex : Ahmed Ben Salah" required>
+          <small class="field-error" id="errName">Merci d'indiquer votre nom.</small>
+        </label>
+
+        <label class="field">
+          <span>Numéro de téléphone</span>
+          <input type="tel" id="fPhone" name="phone" placeholder="Ex : 22 345 678" inputmode="numeric" required>
+          <small class="field-error" id="errPhone">Numéro de téléphone invalide.</small>
+        </label>
+
+        <label class="field">
+          <span>Ville / Zone de livraison</span>
+          <input type="text" id="fCity" name="city" placeholder="Ex : Ariana, Tunis, Sfax…" required>
+          <small class="field-error" id="errCity">Merci d'indiquer votre ville.</small>
+        </label>
+
+        <label class="field">
+          <span>Adresse précise (optionnel)</span>
+          <input type="text" id="fAddress" name="address" placeholder="Rue, numéro, repère…">
+        </label>
+
+        <label class="field field-qty">
+          <span>Quantité</span>
+          <div class="qty-control">
+            <button type="button" id="qtyMinus" aria-label="Diminuer">−</button>
+            <input type="text" id="fQty" name="qty" value="1" inputmode="numeric" readonly>
+            <button type="button" id="qtyPlus" aria-label="Augmenter">+</button>
+          </div>
+        </label>
+
+        <button type="submit" class="btn-order btn-confirm">Confirmer ma commande ✅</button>
+        <p class="order-note">En confirmant, tu seras redirigé vers WhatsApp pour finaliser avec notre équipe.</p>
+      </form>
+    </section>
+
+  </div>
+
+  <div id="notFound" class="order-loading hidden">
+    Produit introuvable. <a href="index.html">Retourner au catalogue</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span class="logo">TN<span class="logo-dot">·</span>GADGETS</span>
+    <p>© 2026 TN Gadgets — Site de démonstration.</p>
+  </div>
+</footer>
+
+<script src="commande.js"></script>
+</body>
+</html>

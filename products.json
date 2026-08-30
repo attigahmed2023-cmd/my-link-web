@@ -1,0 +1,47 @@
+[
+  {
+    "id": "p1",
+    "title": "Mini compresseur / aspirateur portable",
+    "category": "Entretien",
+    "description": "Aspirateur compact sans fil avec 3 embouts, idéal pour la voiture, le clavier, les recoins difficiles. Rechargeable USB.",
+    "price": 23,
+    "image": "images/mini-compressor.jpg",
+    "badge": "Best-seller"
+  },
+  {
+    "id": "p2",
+    "title": "Câble de charge 4-en-1",
+    "category": "Accessoires",
+    "description": "Un seul câble pour tous tes appareils : USB-C, Lightning, Micro-USB. Tressé, résistant, charge rapide 65W.",
+    "price": 15,
+    "image": "images/cable-4en1.jpg",
+    "badge": null
+  },
+  {
+    "id": "p3",
+    "title": "Haut-parleur + 2 micros sans fil",
+    "category": "Audio",
+    "description": "Enceinte LED effet lumineux + 2 micros karaoké inclus. Parfait pour les soirées entre amis ou en famille.",
+    "price": 43,
+    "image": "images/haut-parleur.jpg",
+    "badge": "Populaire"
+  },
+  {
+    "id": "p4",
+    "title": "Diffuseur anti-gravité avec écran",
+    "category": "Maison",
+    "description": "Humidificateur design avec goutte-à-goutte suspendu et affichage de l'heure. Ambiance zen garantie.",
+    "price": 43,
+    "image": "images/diffuseur.jpg",
+    "badge": "Nouveau"
+  },
+  {
+    "id": "p5",
+    "title": "Manette gaming pour smartphone",
+    "category": "Gaming",
+    "description": "Bluetooth 3.0, batterie 500mAh, compatible Free Fire / PUBG et la plupart des jeux mobiles.",
+    "price": 32,
+    "image": "images/manette.jpg",
+    "badge": null
+  }
+]

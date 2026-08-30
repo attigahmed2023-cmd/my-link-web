@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TN Gadgets — Gadgets tech qui simplifient ta vie</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="wrap header-inner">
+    <span class="logo">TN<span class="logo-dot">·</span>GADGETS</span>
+    <nav class="nav" id="nav"></nav>
+    <a href="#produits" class="btn btn-ghost header-cta">Voir les produits</a>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>🚚 Livraison rapide partout en Tunisie</span>
+    <span>💵 Paiement à la livraison</span>
+    <span>🔒 Commande simple, sans risque</span>
+    <span>🚚 Livraison rapide partout en Tunisie</span>
+    <span>💵 Paiement à la livraison</span>
+    <span>🔒 Commande simple, sans risque</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-text">
+      <span class="eyebrow">Sélection tech & gadgets</span>
+      <h1>Des objets malins, pour du vrai.</h1>
+      <p>Une sélection resserrée de gadgets utiles — testés pour leur utilité réelle, pas juste pour la vitrine. Commande en 2 minutes, paiement à la réception.</p>
+      <a href="#produits" class="btn btn-primary">Découvrir la sélection ↓</a>
+    </div>
+    <div class="hero-visual reveal" aria-hidden="true">
+      <div class="hero-frame">
+        <div class="hero-readout">
+          <span>REF <b id="statCount">--</b></span>
+          <span>LIVRAISON <b>24–72H</b></span>
+          <span>PAIEMENT <b>À LA RÉCEPTION</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap" id="produits">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-tag">Catalogue</span>
+      <h2>La sélection du moment</h2>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+  <section id="grid" class="grid"></section>
+</main>
+
+<section class="trust">
+  <div class="wrap trust-grid">
+    <div class="trust-item reveal">
+      <span class="trust-tag">Paiement</span>
+      <h3>À la livraison</h3>
+      <p>Tu payes seulement quand tu reçois ton colis. Zéro risque.</p>
+    </div>
+    <div class="trust-item reveal">
+      <span class="trust-tag">Expédition</span>
+      <h3>Livraison rapide</h3>
+      <p>Expédition sous 24-72h, partout en Tunisie.</p>
+    </div>
+    <div class="trust-item reveal">
+      <span class="trust-tag">Commande</span>
+      <h3>En un message</h3>
+      <p>Un message WhatsApp suffit, on s'occupe du reste.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faq wrap" id="faq">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-tag">Questions fréquentes</span>
+      <h2>Avant de commander</h2>
+    </div>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Comment se passe le paiement ?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Tu payes uniquement à la réception de ton colis, en espèces au livreur. Aucun paiement en ligne n'est demandé — zéro risque pour toi.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Combien de temps prend la livraison ?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Comptez 24 à 72h selon votre gouvernorat. Vous recevez un appel du livreur avant la livraison pour confirmer le rendez-vous.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Que faire si le produit ne me convient pas ?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Tu peux refuser le colis à la livraison sans payer, ou nous contacter sur WhatsApp sous 48h pour un échange si le produit est défectueux.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Comment passer commande ?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Clique sur un produit, puis sur « Commander sur WhatsApp ». Un message pré-rempli s'ouvre, il te suffit de l'envoyer et de confirmer ton adresse.</p>
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        Les produits sont-ils garantis ?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Chaque produit est vérifié avant expédition. En cas de souci à la réception, contacte-nous directement sur WhatsApp, on trouve une solution rapidement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <button id="modalClose" class="modal-close" aria-label="Fermer">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<a href="#" id="waFloat" class="wa-float" target="_blank" aria-label="Commander sur WhatsApp">💬</a>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span class="logo">TN<span class="logo-dot">·</span>GADGETS</span>
+    <p>© 2026 TN Gadgets — Site de démonstration.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

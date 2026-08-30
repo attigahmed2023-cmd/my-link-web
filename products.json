@@ -6,7 +6,8 @@
     "description": "Aspirateur compact sans fil avec 3 embouts, idéal pour la voiture, le clavier, les recoins difficiles. Rechargeable USB.",
     "price": 23,
     "image": "images/mini-compressor.jpg",
-    "badge": "Best-seller"
+    "badge": "Best-seller",
+    "shipperId": null
   },
   {
     "id": "p2",
@@ -15,7 +16,8 @@
     "description": "Un seul câble pour tous tes appareils : USB-C, Lightning, Micro-USB. Tressé, résistant, charge rapide 65W.",
     "price": 15,
     "image": "images/cable-4en1.jpg",
-    "badge": null
+    "badge": null,
+    "shipperId": "01a352c9-547d-4a14-b551-949103ff5623"
   },
   {
     "id": "p3",
@@ -24,7 +26,8 @@
     "description": "Enceinte LED effet lumineux + 2 micros karaoké inclus. Parfait pour les soirées entre amis ou en famille.",
     "price": 43,
     "image": "images/haut-parleur.jpg",
-    "badge": "Populaire"
+    "badge": "Populaire",
+    "shipperId": null
   },
   {
     "id": "p4",
@@ -33,7 +36,8 @@
     "description": "Humidificateur design avec goutte-à-goutte suspendu et affichage de l'heure. Ambiance zen garantie.",
     "price": 43,
     "image": "images/diffuseur.jpg",
-    "badge": "Nouveau"
+    "badge": "Nouveau",
+    "shipperId": null
   },
   {
     "id": "p5",
@@ -42,6 +46,7 @@
     "description": "Bluetooth 3.0, batterie 500mAh, compatible Free Fire / PUBG et la plupart des jeux mobiles.",
     "price": 32,
     "image": "images/manette.jpg",
-    "badge": null
+    "badge": null,
+    "shipperId": null
   }
 ]

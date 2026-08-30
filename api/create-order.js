@@ -5,12 +5,23 @@ export default async function handler(req, res) {
 
   const { name, phone, city, address, shipperProductId, quantity, totalPrice } = req.body;
 
-  console.log("Requête reçue:", { name, phone, city, shipperProductId, quantity, totalPrice });
-
   if (!name || !phone || !city || !shipperProductId) {
-    console.error("Champs manquants:", { name, phone, city, shipperProductId });
     return res.status(400).json({ error: "Champs manquants" });
   }
+
+  const payload = {
+    address: {
+      name: name,
+      phone1: phone,
+      address1: address ? `${address}, ${city}` : city,
+      country: "TN"
+    },
+    items: [
+      { id: shipperProductId }
+    ]
+  };
+
+  console.log("Payload envoyé:", JSON.stringify(payload));
 
   try {
     const shipperRes = await fetch("https://server.shipper.network/api/v1/orders", {
@@ -20,25 +31,11 @@ export default async function handler(req, res) {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        address: {
-          name: name,
-          phone1: phone,
-          address1: address ? `${address}, ${city}` : city,
-          country: "TN"
-        },
-        items: [
-          { id: shipperProductId, quantity: quantity || 1, total_price: totalPrice }
-        ],
-        is_cod: true,
-        auto_fulfill: false,
-        with_confirmation: true,
-        store_name: "TN Gadgets"
-      })
+      body: JSON.stringify(payload)
     });
 
     const data = await shipperRes.json();
-    console.log("Réponse Shipper:", shipperRes.status, JSON.stringify(data));
+    console.log("Réponse Shipper complète:", shipperRes.status, JSON.stringify(data));
 
     if (!shipperRes.ok) {
       return res.status(shipperRes.status).json({ error: data });

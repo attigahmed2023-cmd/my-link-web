@@ -3,22 +3,29 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { name, phone, city, address, shipperProductId, quantity, totalPrice } = req.body;
+  const { address, items, is_cod, store_name, external_order_id } = req.body;
 
-  if (!name || !phone || !city || !shipperProductId) {
+  if (!address || !address.name || !address.phone1 || !address.address1 || !items || !items.length) {
     return res.status(400).json({ error: "Champs manquants" });
   }
 
   const payload = {
     address: {
-      name: name,
-      phone1: phone,
-      address1: address ? `${address}, ${city}` : city,
-      country: "TN"
+      name: address.name,
+      phone1: address.phone1,
+      address1: address.address1,
+      division_1: address.division_1 || undefined,
+      division_2: address.division_2 || undefined,
+      country: address.country || "TN"
     },
-    items: [
-      { id: shipperProductId }
-    ]
+    items: items.map(item => ({
+      id: item.id,
+      quantity: item.quantity || 1,
+      total_price: item.total_price
+    })),
+    is_cod: is_cod !== undefined ? is_cod : true,
+    store_name: store_name || "TN Gadgets",
+    external_order_id: external_order_id || undefined
   };
 
   console.log("Payload envoyé:", JSON.stringify(payload));

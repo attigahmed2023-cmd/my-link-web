@@ -78,9 +78,56 @@ function buildWhatsAppLink(data) {
       `💰 Total : ${total} DT\n\n` +
       `👤 Nom : ${data.name}\n` +
       `📞 Téléphone : ${data.phone}\n` +
-      `📍 Gouvernorat : ${data.city}` +
+      `📍 Gouvernorat : ${data.city}\n` +
+      `📍 Délégation : ${data.delegation}` +
       (data.address ? `\n🏠 Adresse : ${data.address}` : "");
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+// ---- Gouvernorats / Délégations (chargés dynamiquement depuis Shipper) ----
+
+async function loadGovernorates() {
+  const select = document.getElementById("fCity");
+  try {
+    const res = await fetch("/api/divisions?level=1");
+    const data = await res.json();
+    const divisions = data.divisions || [];
+
+    select.innerHTML = `<option value="" disabled selected>Choisissez votre gouvernorat</option>`;
+    divisions.forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d.id;
+      opt.textContent = d.name;
+      select.appendChild(opt);
+    });
+  } catch (err) {
+    select.innerHTML = `<option value="" disabled selected>Erreur de chargement</option>`;
+    console.error("Erreur chargement gouvernorats:", err);
+  }
+}
+
+async function loadDelegations(parentId) {
+  const select = document.getElementById("fDelegation");
+  select.disabled = true;
+  select.innerHTML = `<option value="" disabled selected>Chargement…</option>`;
+
+  try {
+    const res = await fetch(`/api/divisions?level=2&parent_id=${parentId}`);
+    const data = await res.json();
+    const divisions = data.divisions || [];
+
+    select.innerHTML = `<option value="" disabled selected>Choisissez votre délégation</option>`;
+    divisions.forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d.id;
+      opt.textContent = d.name;
+      select.appendChild(opt);
+    });
+    select.disabled = false;
+  } catch (err) {
+    select.innerHTML = `<option value="" disabled selected>Erreur de chargement</option>`;
+    console.error("Erreur chargement délégations:", err);
+  }
 }
 
 // Envoie la commande à Shipper via notre fonction /api/create-order
@@ -96,8 +143,9 @@ async function sendOrderToShipper(data) {
     address: {
       name: data.name,
       phone1: data.phone,
-      address1: data.address || data.city, // adresse précise si fournie, sinon le gouvernorat
-      division_1: data.city, // le gouvernorat choisi dans la liste déroulante
+      address1: data.address || data.city,
+      division_1: data.city,       // nom du gouvernorat
+      division_2: data.delegation, // nom de la délégation
       country: "TN"
     },
     items: [
@@ -128,6 +176,13 @@ function initForm() {
   document.getElementById("qtyMinus").addEventListener("click", () => updateQty(-1));
   document.getElementById("qtyPlus").addEventListener("click", () => updateQty(1));
 
+  loadGovernorates();
+
+  document.getElementById("fCity").addEventListener("change", (e) => {
+    const parentId = e.target.value;
+    if (parentId) loadDelegations(parentId);
+  });
+
   document.getElementById("orderForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!CURRENT_PRODUCT) return;
@@ -135,13 +190,15 @@ function initForm() {
     const name = document.getElementById("fName");
     const phone = document.getElementById("fPhone");
     const city = document.getElementById("fCity");
+    const delegation = document.getElementById("fDelegation");
     const address = document.getElementById("fAddress");
 
     const validName = validateField(name, "errName", v => v.length >= 3);
     const validPhone = validateField(phone, "errPhone", v => /^[0-9\s]{8,}$/.test(v));
-    const validCity = validateField(city, "errCity", v => v.length >= 2);
+    const validCity = validateField(city, "errCity", v => v.length >= 1);
+    const validDelegation = validateField(delegation, "errDelegation", v => v.length >= 1);
 
-    if (!validName || !validPhone || !validCity) {
+    if (!validName || !validPhone || !validCity || !validDelegation) {
       const firstInvalid = document.querySelector(".field.invalid input, .field.invalid select");
       if (firstInvalid) firstInvalid.focus();
       return;
@@ -150,11 +207,11 @@ function initForm() {
     const data = {
       name: name.value.trim(),
       phone: phone.value.trim(),
-      city: city.value.trim(),
+      city: city.options[city.selectedIndex].textContent,           // nom du gouvernorat
+      delegation: delegation.options[delegation.selectedIndex].textContent, // nom de la délégation
       address: address.value.trim()
     };
 
-    // On envoie d'abord à Shipper, puis on redirige vers WhatsApp (sans bloquer si Shipper échoue)
     await sendOrderToShipper(data);
 
     const link = buildWhatsAppLink(data);

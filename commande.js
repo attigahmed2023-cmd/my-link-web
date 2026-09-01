@@ -72,43 +72,63 @@ function validateField(input, errId, testFn) {
 function buildWhatsAppLink(data) {
   const total = CURRENT_PRODUCT.price * qty;
   const msg =
-    `Bonjour, je souhaite confirmer ma commande :\n\n` +
-    `🛒 Produit : ${CURRENT_PRODUCT.title}\n` +
-    `🔢 Quantité : ${qty}\n` +
-    `💰 Total : ${total} DT\n\n` +
-    `👤 Nom : ${data.name}\n` +
-    `📞 Téléphone : ${data.phone}\n` +
-    `📍 Ville : ${data.city}` +
-    (data.address ? `\n🏠 Adresse : ${data.address}` : "");
+      `Bonjour, je souhaite confirmer ma commande :\n\n` +
+      `🛒 Produit : ${CURRENT_PRODUCT.title}\n` +
+      `🔢 Quantité : ${qty}\n` +
+      `💰 Total : ${total} DT\n\n` +
+      `👤 Nom : ${data.name}\n` +
+      `📞 Téléphone : ${data.phone}\n` +
+      `📍 Gouvernorat : ${data.city}` +
+      (data.address ? `\n🏠 Adresse : ${data.address}` : "");
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
-function sendToShipper(data) {
+// Envoie la commande à Shipper via notre fonction /api/create-order
+async function sendOrderToShipper(data) {
   if (!CURRENT_PRODUCT.shipperId) {
-    console.warn("Pas de shipperId pour ce produit, commande non envoyée à Shipper.");
+    console.warn("Ce produit n'a pas de shipperId, commande non envoyée à Shipper.");
     return;
   }
-  fetch("/api/create-order", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+
+  const total = CURRENT_PRODUCT.price * qty;
+
+  const payload = {
+    address: {
       name: data.name,
-      phone: data.phone,
-      city: data.city,
-      address: data.address,
-      shipperProductId: CURRENT_PRODUCT.shipperId,
-      quantity: qty,
-      totalPrice: CURRENT_PRODUCT.price * qty
-    }),
-    keepalive: true
-  }).catch(err => console.error("Erreur Shipper:", err));
+      phone1: data.phone,
+      address1: data.address || data.city, // adresse précise si fournie, sinon le gouvernorat
+      division_1: data.city, // le gouvernorat choisi dans la liste déroulante
+      country: "TN"
+    },
+    items: [
+      {
+        id: CURRENT_PRODUCT.shipperId,
+        quantity: qty,
+        total_price: total
+      }
+    ],
+    is_cod: true,
+    store_name: "TN Gadgets",
+    external_order_id: `TNG-${CURRENT_PRODUCT.id}-${Date.now()}`
+  };
+
+  try {
+    const res = await fetch("/api/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    console.log("Réponse create-order:", res.status, await res.clone().json().catch(() => null));
+  } catch (err) {
+    console.error("Erreur lors de l'envoi à Shipper:", err);
+  }
 }
 
 function initForm() {
   document.getElementById("qtyMinus").addEventListener("click", () => updateQty(-1));
   document.getElementById("qtyPlus").addEventListener("click", () => updateQty(1));
 
-  document.getElementById("orderForm").addEventListener("submit", (e) => {
+  document.getElementById("orderForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!CURRENT_PRODUCT) return;
 
@@ -122,7 +142,7 @@ function initForm() {
     const validCity = validateField(city, "errCity", v => v.length >= 2);
 
     if (!validName || !validPhone || !validCity) {
-      const firstInvalid = document.querySelector(".field.invalid input");
+      const firstInvalid = document.querySelector(".field.invalid input, .field.invalid select");
       if (firstInvalid) firstInvalid.focus();
       return;
     }
@@ -134,7 +154,8 @@ function initForm() {
       address: address.value.trim()
     };
 
-    sendToShipper(data);
+    // On envoie d'abord à Shipper, puis on redirige vers WhatsApp (sans bloquer si Shipper échoue)
+    await sendOrderToShipper(data);
 
     const link = buildWhatsAppLink(data);
     window.location.href = link;

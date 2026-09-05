@@ -6,8 +6,7 @@
     "description": "Aspirateur compact sans fil avec 3 embouts, idéal pour la voiture, le clavier, les recoins difficiles. Rechargeable USB.",
     "price": 23,
     "image": "images/mini-compressor.jpg",
-    "badge": "Best-seller",
-    "shipperId": null
+    "badge": "Best-seller"
   },
   {
     "id": "p2",
@@ -16,8 +15,7 @@
     "description": "Un seul câble pour tous tes appareils : USB-C, Lightning, Micro-USB. Tressé, résistant, charge rapide 65W.",
     "price": 15,
     "image": "images/cable-4en1.jpg",
-    "badge": null,
-    "shipperId": "01a352c9-547d-4a14-b551-949103ff5623"
+    "badge": null
   },
   {
     "id": "p3",
@@ -36,8 +34,7 @@
     "description": "Humidificateur design avec goutte-à-goutte suspendu et affichage de l'heure. Ambiance zen garantie.",
     "price": 43,
     "image": "images/diffuseur.jpg",
-    "badge": "Nouveau",
-    "shipperId": null
+    "badge": "Nouveau"
   },
   {
     "id": "p5",
@@ -46,7 +43,36 @@
     "description": "Bluetooth 3.0, batterie 500mAh, compatible Free Fire / PUBG et la plupart des jeux mobiles.",
     "price": 32,
     "image": "images/manette.jpg",
-    "badge": null,
-    "shipperId": null
+    "badge": null
+  },
+  {
+    "id": "p6",
+    "title": "Diffuseur flamme à effet feu",
+    "category": "Maison",
+    "description": "Diffuseur d'arômes avec simulation de flamme réaliste et lumière colorée. Crée une ambiance zen et chaleureuse instantanément.",
+    "price": 34.9,
+    "oldPrice": 59.9,
+    "image": "images/diffuseur-flamme.jpg",
+    "badge": "Tendance"
+  },
+  {
+    "id": "p7",
+    "title": "Kit vlogging complet (lumière + micro + trépied)",
+    "category": "Créateurs",
+    "description": "Kit tout-en-un pour smartphone : lumière LED, micro directionnel, trépied et support. Idéal pour filmer comme un pro.",
+    "price": 59.9,
+    "oldPrice": 89.9,
+    "image": "images/kit-vlogging-bolice.jpg",
+    "badge": "Nouveau"
+  },
+  {
+    "id": "p8",
+    "title": "Masseur de nuque et épaules chauffant",
+    "category": "Bien-être",
+    "description": "Masseur shiatsu chauffant pour nuque, épaules et dos. 3 niveaux d'intensité, imite les mains d'un vrai masseur.",
+    "price": 49.9,
+    "oldPrice": 79.9,
+    "image": "images/masseur-nuque-xo.jpg",
+    "badge": "Populaire"
   }
 ]
